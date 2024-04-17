@@ -1,0 +1,69 @@
+﻿using Application.Services;
+using Domain.Entities;
+using Infrastructure.Data;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Infrastructure.Implementation
+{
+    public class AccountantService : IAccountantService
+    {
+        private readonly IUserService _userService;
+        private readonly AppDbContext _appDbContext;
+
+        public AccountantService(AppDbContext appDbContext, IUserService userService)
+        {
+            _appDbContext = appDbContext;
+            _userService = userService;
+        }
+        public User BlockUser(int userId)
+        {
+            var userToBlock = _userService.GetUserById(userId);
+            if (userToBlock == null) {
+                return null;
+            }
+            userToBlock.IsBlocked = true;
+            _appDbContext.SaveChanges();
+            return userToBlock;
+        }
+
+        public Accountant Login(Accountant loginModel)
+        {
+            //if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(password))
+            //{
+            //    return null;
+            //}
+            var accountant = _appDbContext.Accountants.FirstOrDefault(x => x.Email == loginModel.Email);
+            if (accountant != null && BCrypt.Net.BCrypt.Verify(loginModel.Password, accountant.Password)) {
+                return accountant;
+            }
+            return null;
+
+        }
+
+        public Accountant Register(Accountant accountant)
+        {
+            //if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(password)) {
+            //    return null; 
+            //}
+
+            
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(accountant.Password);
+            accountant.Password = hashedPassword;
+            accountant.Email = $"{accountant.FirstName}.{accountant.LastName}@accountant.gmail.com";
+            _appDbContext.Accountants.Add(accountant);
+            _appDbContext.SaveChanges();
+            //var newAccountant = new Accountant
+            //{
+            //    FirstName = firstName,
+            //    LastName = lastName,
+            //    Email = $"{firstName}.{lastName}@accountant.gmail.com",
+            //    Password = hashedPassword
+            //};
+            return accountant;
+        }
+    }
+}
