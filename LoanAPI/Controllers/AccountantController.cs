@@ -6,6 +6,7 @@ using Infrastructure.Data;
 using Infrastructure.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace LoanAPI.Controllers
 {
@@ -30,14 +31,18 @@ namespace LoanAPI.Controllers
         [HttpPatch("{userId}/block")]
         public IActionResult BlockUser(int userId) 
         {
+            
             var user = _accountantService.BlockUser(userId);
+            Log.Information("User Blocked");
             return user == null ? NotFound("User not found") : Ok(user);
+
         }
 
         [HttpPatch("{userId}/unblock")]
         public IActionResult UnblockUser(int userId)
         {
             var user = _accountantService.UnblockUser(userId);
+            Log.Information("User unBlocked");
             return user == null ? NotFound("User not found") : Ok(user);
         }
 
@@ -56,6 +61,7 @@ namespace LoanAPI.Controllers
                 return Unauthorized("Invalid Email or Password");
             }
             var tokenString = _tokenGenerator.GenerateToken(accountant);
+            Log.Information("accountant logged in");
             return Ok(
                 new
                 {
@@ -78,6 +84,7 @@ namespace LoanAPI.Controllers
             var accountant = _accountantService.Register(registerModel);
             var tokenString = _tokenGenerator.GenerateToken(accountant);
             var locationURI = Url.Action("GetAccountantById", new { id = accountant.Id });
+            Log.Information("accountant Registered");
             return Created(
                 locationURI,
                 new
@@ -91,6 +98,7 @@ namespace LoanAPI.Controllers
         public IActionResult GetAccountantById(int id)
         {
             var accountant = _accountantService.GetAccountantById(id);
+            Log.Information("accountant retreived");
             return accountant == null ? NotFound("Accountant not found") : Ok(accountant);
         }
     }

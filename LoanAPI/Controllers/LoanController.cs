@@ -5,6 +5,7 @@ using Domain.Enums;
 using Infrastructure.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 
@@ -54,6 +55,7 @@ namespace LoanAPI.Controllers
             var loan = _loanService.GetLoan(id);
             if(loan == null)
             {
+                Log.Information("Loan Not found");
                 return NotFound("Loan not found");
             }
             if (User.IsInRole(Role.User))
@@ -63,6 +65,7 @@ namespace LoanAPI.Controllers
             }
             else
             {
+                Log.Information("Loan returned");
                 return Ok(loan);
             }
         }
@@ -77,8 +80,6 @@ namespace LoanAPI.Controllers
             }
 
 
-            //var updatedLoan = _loanService.UpdateLoan(loan, id);
-            //return updatedLoan == null ? NotFound("Loan not found") : Ok(updatedLoan);
 
             if(User.IsInRole(Role.User))
             {
@@ -88,6 +89,7 @@ namespace LoanAPI.Controllers
                 }
                 loan.UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 var updatedLoan = _loanService.UpdateLoan(loan, id);
+                Log.Information("Loan Updated");
                 return updatedLoan == null ? NotFound("Loan not found") : Ok(updatedLoan);
             }
             else
@@ -112,6 +114,7 @@ namespace LoanAPI.Controllers
             if (User.IsInRole(Role.User))
             {
                 int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                Log.Information("Loan deleted");
                 return userId == loan.UserId ? Ok(loan) : Forbid();
             }
             else
@@ -127,6 +130,7 @@ namespace LoanAPI.Controllers
         public IActionResult ApproveLoan(int id)
         {
             var loan = _loanService.ApporveLoan(id);
+            Log.Information("Loan approved");
             return loan == null ? NotFound("Loan not found") : Ok(loan);
         }
 
@@ -135,6 +139,7 @@ namespace LoanAPI.Controllers
         public IActionResult RejectLoan(int id)
         {
             var loan = _loanService.RejectLoan(id);
+            Log.Information("Loan rejected");
             return loan == null ? NotFound("Loan not found") : Ok(loan);
         }
     }

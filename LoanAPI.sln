@@ -3,15 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanAPI", "LoanAPI\LoanAPI.csproj", "{425B27E5-81FE-4238-9118-BCEFFFE4A0C4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoanAPI.Tests", "LoanAPI.Tests", "{BE39E7F6-730A-4803-8147-C40B7B6D381E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{61EE2493-DBF3-4B4E-BDB2-AA997CFB060A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{DB6C8D67-8AE9-4394-90CF-999CB84B6059}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{C3BADE7F-DD8F-49C0-B864-4CEBCED41DB9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoanAPI.tests", "LoanAPI.tests", "{6E5CB518-B463-4742-8844-1316F08CD97C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTests", "AccountantServiceTests\ServiceTests.csproj", "{D4F5D528-ADF6-403C-891F-006C68F9F42B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,25 +13,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{425B27E5-81FE-4238-9118-BCEFFFE4A0C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{425B27E5-81FE-4238-9118-BCEFFFE4A0C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{425B27E5-81FE-4238-9118-BCEFFFE4A0C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{425B27E5-81FE-4238-9118-BCEFFFE4A0C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{61EE2493-DBF3-4B4E-BDB2-AA997CFB060A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{61EE2493-DBF3-4B4E-BDB2-AA997CFB060A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{61EE2493-DBF3-4B4E-BDB2-AA997CFB060A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{61EE2493-DBF3-4B4E-BDB2-AA997CFB060A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DB6C8D67-8AE9-4394-90CF-999CB84B6059}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DB6C8D67-8AE9-4394-90CF-999CB84B6059}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DB6C8D67-8AE9-4394-90CF-999CB84B6059}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DB6C8D67-8AE9-4394-90CF-999CB84B6059}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C3BADE7F-DD8F-49C0-B864-4CEBCED41DB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C3BADE7F-DD8F-49C0-B864-4CEBCED41DB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C3BADE7F-DD8F-49C0-B864-4CEBCED41DB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C3BADE7F-DD8F-49C0-B864-4CEBCED41DB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4F5D528-ADF6-403C-891F-006C68F9F42B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4F5D528-ADF6-403C-891F-006C68F9F42B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4F5D528-ADF6-403C-891F-006C68F9F42B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4F5D528-ADF6-403C-891F-006C68F9F42B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D4F5D528-ADF6-403C-891F-006C68F9F42B} = {BE39E7F6-730A-4803-8147-C40B7B6D381E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D25F626-F658-48B9-A59D-E8BCBF337D36}

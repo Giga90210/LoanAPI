@@ -7,6 +7,7 @@ using Infrastructure.Helpers;
 using Infrastructure.Implementation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System.Security.Claims;
 
 namespace LoanAPI.Controllers
@@ -35,36 +36,17 @@ namespace LoanAPI.Controllers
         public IActionResult GetUserById(int id) 
         {
             var user = _userService.GetUserById(id);
+            Log.Information("GetUserById called");
             if (User.IsInRole(Role.Accountant))
             {
-                // var user = _userService.GetUserById(id);
                 return user == null ? NotFound("User not found, please enter valid Id") : Ok(user);
-                //if (user == null)
-                //{
-                //    return NotFound("User not found, please enter valid Id");
-                //}
-                //return Ok(user);
             }
             else
             {
-                //var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                //if(currentUserId != id) 
-                //{
-                //    return Forbid("You can't access this data");
-                //}
-                ////var user = _userService.GetUserById(id);
-                //return Ok(user);
-
-
                 int currentUserId;
 
                 if (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out currentUserId))
                 {
-                    //if (currentUserId != id)
-                    //{
-                    //    return Forbid("You can't access this data");
-                    //}
-                    //return Ok(user);
                     return currentUserId != id ? Forbid() : Ok(user);
                 }
                 else
@@ -80,6 +62,7 @@ namespace LoanAPI.Controllers
         [HttpGet("all")]
         public IActionResult GetUsers() 
         {
+            Log.Information("GetUsers called");
             var users = _userService.GetUsers();
             return Ok(users);
         }
@@ -99,6 +82,7 @@ namespace LoanAPI.Controllers
                 return NotFound("User not found, Please try again");
             }
             var tokenString = _tokenGenerator.GenerateToken(user);
+            Log.Information("User logged in");
             return Ok(
                 new
                 {
@@ -121,6 +105,7 @@ namespace LoanAPI.Controllers
             var user = _userService.Register(registerModel);
             var tokenString = _tokenGenerator.GenerateToken(user);
             var locationURI = Url.Action("GetUserById", new { id = user.Id });
+            Log.Information("User registered");
             return Created(
                 locationURI,
                 new
@@ -137,6 +122,7 @@ namespace LoanAPI.Controllers
         [HttpGet("loans")]
         public IActionResult GetMyLoans() 
         {
+            Log.Information("GetMyLoans called");
             int userId;
             if (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out userId)) 
             {

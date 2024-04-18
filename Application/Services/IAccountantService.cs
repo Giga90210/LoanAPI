@@ -12,7 +12,7 @@ namespace Application.Services
         User BlockUser(int userId);
         User UnblockUser(int userId);
         Accountant Login(Accountant loginModel);
-        Accountant Register(Accountant accountant);
+        Accountant Register(Accountant registerModel);
         Accountant GetAccountantById(int id);
 
     }

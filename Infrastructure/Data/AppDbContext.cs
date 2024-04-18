@@ -14,8 +14,8 @@ namespace Infrastructure.Data
         {
             
         }
-        public DbSet<Accountant> Accountants { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Loan> Loans { get; set; }
+        public virtual DbSet<Accountant> Accountants { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Loan> Loans { get; set; }
     }
 }
