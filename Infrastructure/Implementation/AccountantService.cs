@@ -29,6 +29,17 @@ namespace Infrastructure.Implementation
             _appDbContext.SaveChanges();
             return userToBlock;
         }
+        public User UnblockUser(int userId)
+        {
+            var userToUnblock = _userService.GetUserById(userId);
+            if (userToUnblock == null)
+            {
+                return null;
+            }
+            userToUnblock.IsBlocked = false;
+            _appDbContext.SaveChanges();
+            return userToUnblock;
+        }
 
         public Accountant Login(Accountant loginModel)
         {
@@ -65,7 +76,6 @@ namespace Infrastructure.Implementation
             //};
             return registerModel;
         }
-
 
 
         public Accountant GetAccountantById(int id) => _appDbContext.Accountants.FirstOrDefault(x => x.Id == id);

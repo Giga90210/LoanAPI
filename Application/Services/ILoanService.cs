@@ -15,6 +15,8 @@ namespace Application.Services
         Loan DeleteLoan(int id);
         IEnumerable<Loan> GetLoansByUserId(int userId);
 
+        Loan ApporveLoan(int id);
+        Loan RejectLoan(int id);
 
     }
 }

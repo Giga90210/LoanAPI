@@ -10,6 +10,7 @@ namespace Application.Services
     public interface IAccountantService
     {
         User BlockUser(int userId);
+        User UnblockUser(int userId);
         Accountant Login(Accountant loginModel);
         Accountant Register(Accountant accountant);
         Accountant GetAccountantById(int id);

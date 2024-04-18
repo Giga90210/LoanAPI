@@ -27,15 +27,18 @@ namespace LoanAPI.Controllers
             _tokenGenerator = tokenGenerator;
         }
 
-        [HttpPatch("block/{userId}")]
+        [HttpPatch("{userId}/block")]
         public IActionResult BlockUser(int userId) 
         {
             var user = _accountantService.BlockUser(userId);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return Ok(user);
+            return user == null ? NotFound("User not found") : Ok(user);
+        }
+
+        [HttpPatch("{userId}/unblock")]
+        public IActionResult UnblockUser(int userId)
+        {
+            var user = _accountantService.UnblockUser(userId);
+            return user == null ? NotFound("User not found") : Ok(user);
         }
 
         [AllowAnonymous]
@@ -50,7 +53,7 @@ namespace LoanAPI.Controllers
             var accountant = _accountantService.Login(loginModel);
             if (accountant == null)
             {
-                return NotFound("Accountant not found, Please try again");
+                return Unauthorized("Invalid Email or Password");
             }
             var tokenString = _tokenGenerator.GenerateToken(accountant);
             return Ok(
@@ -62,6 +65,8 @@ namespace LoanAPI.Controllers
                 });
 
         }
+
+
         [HttpPost("register")]
         public IActionResult Register([FromBody]Accountant registerModel)
         {
@@ -86,11 +91,7 @@ namespace LoanAPI.Controllers
         public IActionResult GetAccountantById(int id)
         {
             var accountant = _accountantService.GetAccountantById(id);
-            if (accountant == null)
-            {
-                return NotFound("Accountant not found");
-            }
-            return Ok(accountant);
+            return accountant == null ? NotFound("Accountant not found") : Ok(accountant);
         }
     }
 }

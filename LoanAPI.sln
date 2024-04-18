@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanAPI", "LoanAPI\LoanAPI.csproj", "{425B27E5-81FE-4238-9118-BCEFFFE4A0C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanAPI", "LoanAPI\LoanAPI.csproj", "{425B27E5-81FE-4238-9118-BCEFFFE4A0C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{61EE2493-DBF3-4B4E-BDB2-AA997CFB060A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{61EE2493-DBF3-4B4E-BDB2-AA997CFB060A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{DB6C8D67-8AE9-4394-90CF-999CB84B6059}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{DB6C8D67-8AE9-4394-90CF-999CB84B6059}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{C3BADE7F-DD8F-49C0-B864-4CEBCED41DB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{C3BADE7F-DD8F-49C0-B864-4CEBCED41DB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoanAPI.tests", "LoanAPI.tests", "{6E5CB518-B463-4742-8844-1316F08CD97C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

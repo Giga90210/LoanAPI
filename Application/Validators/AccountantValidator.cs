@@ -17,8 +17,8 @@ namespace Application.Validators
                 @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$",
                 RegexOptions.Compiled);
 
-            RuleFor(m => m.FirstName).NotEmpty().WithMessage("The First Name field should not be empty").Length(0, 50).WithMessage("Please put 0-50 characters");
-            RuleFor(m => m.LastName).NotEmpty().WithMessage("The Last Name field should not be empty").Length(0, 50).WithMessage("Please put 0-50 characters");
+            RuleFor(m => m.FirstName).NotEmpty().WithMessage("The First Name field should not be empty").Length(0, 50).WithMessage("Please put 0-50 characters").Matches("^[a-zA-Z]+$").WithMessage("First name can only be letters");
+            RuleFor(m => m.LastName).NotEmpty().WithMessage("The Last Name field should not be empty").Length(0, 50).WithMessage("Please put 0-50 characters").Matches("^[a-zA-Z]+$").WithMessage("Last name can only be letters");
             RuleFor(m => m.Email).NotEmpty().WithMessage("Email is required.").EmailAddress().WithMessage("Invalid Email");
             RuleFor(m => m.Password)
                 .NotEmpty().WithMessage("Password is required")

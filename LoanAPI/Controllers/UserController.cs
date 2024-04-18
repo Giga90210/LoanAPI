@@ -34,24 +34,43 @@ namespace LoanAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetUserById(int id) 
         {
+            var user = _userService.GetUserById(id);
             if (User.IsInRole(Role.Accountant))
             {
-                var user = _userService.GetUserById(id);
-                if (user == null)
-                {
-                    return NotFound("User not found, please enter valid Id");
-                }
-                return Ok(user);
+                // var user = _userService.GetUserById(id);
+                return user == null ? NotFound("User not found, please enter valid Id") : Ok(user);
+                //if (user == null)
+                //{
+                //    return NotFound("User not found, please enter valid Id");
+                //}
+                //return Ok(user);
             }
             else
             {
-                var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                if(currentUserId != id) 
+                //var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                //if(currentUserId != id) 
+                //{
+                //    return Forbid("You can't access this data");
+                //}
+                ////var user = _userService.GetUserById(id);
+                //return Ok(user);
+
+
+                int currentUserId;
+
+                if (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out currentUserId))
                 {
-                    return Forbid("You can't access this data");
+                    //if (currentUserId != id)
+                    //{
+                    //    return Forbid("You can't access this data");
+                    //}
+                    //return Ok(user);
+                    return currentUserId != id ? Forbid() : Ok(user);
                 }
-                var user = _userService.GetUserById(id);
-                return Ok(user);
+                else
+                {
+                    return BadRequest("Invalid user ID");
+                }
             }
 
 
@@ -122,11 +141,7 @@ namespace LoanAPI.Controllers
             if (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out userId)) 
             {
                 var loans = _userService.GetMyLoans(userId);
-                if(loans == null)
-                {
-                    return NotFound();
-                }
-                return Ok(loans);
+                return loans == null ? NotFound("Invalid user Id or user doesn't have loans") : Ok(loans);
             }
             else
             {

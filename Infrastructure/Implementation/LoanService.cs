@@ -1,5 +1,6 @@
 ﻿using Application.Services;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Data;
 using System;
 using System.Collections.Generic;
@@ -54,11 +55,37 @@ namespace Infrastructure.Implementation
         public Loan DeleteLoan(int id)
         {
             var loanToDelete = GetLoan(id);
+            if(loanToDelete == null)
+            {
+                return null;
+            }
             _appDbContext.Remove(loanToDelete);
             _appDbContext.SaveChanges();
             return loanToDelete;
         }
 
         public IEnumerable<Loan> GetLoansByUserId(int userId) => _appDbContext.Loans.Where(x=>x.UserId == userId).ToList();
+
+        public Loan ApporveLoan(int id)
+        {
+            var loan = GetLoan(id);
+            if (loan == null)
+            {
+                return null;
+            }
+            loan.Status = LoanStatus.Approved;
+            return loan;
+        }
+
+        public Loan RejectLoan(int id)
+        {
+            var loan = GetLoan(id);
+            if (loan == null)
+            {
+                return null;
+            }
+            loan.Status = LoanStatus.Rejected;
+            return loan;
+        }
     }
 }
