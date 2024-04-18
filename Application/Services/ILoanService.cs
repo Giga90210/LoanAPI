@@ -13,6 +13,7 @@ namespace Application.Services
         Loan GetLoan(int id);
         Loan UpdateLoan(Loan loan, int id);
         Loan DeleteLoan(int id);
+        IEnumerable<Loan> GetLoansByUserId(int userId);
 
 
     }

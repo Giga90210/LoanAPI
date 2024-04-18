@@ -18,6 +18,17 @@ namespace Infrastructure.Implementation
         {
             _appDbContext = appDbContext;
         }
+
+        public IEnumerable<Loan> GetMyLoans(int id)
+        {
+            var loans = _appDbContext.Loans.Where(x=>x.UserId == id).ToList();
+            if(loans == null || loans.Count == 0)
+            {
+                return null;
+            }
+            return loans;
+        }
+
         public User GetUserById(int id) => _appDbContext.Users.FirstOrDefault(u => u.Id == id);
 
         public IEnumerable<User> GetUsers() => _appDbContext.Users;

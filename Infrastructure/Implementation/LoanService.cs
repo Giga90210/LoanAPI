@@ -58,5 +58,7 @@ namespace Infrastructure.Implementation
             _appDbContext.SaveChanges();
             return loanToDelete;
         }
+
+        public IEnumerable<Loan> GetLoansByUserId(int userId) => _appDbContext.Loans.Where(x=>x.UserId == userId).ToList();
     }
 }

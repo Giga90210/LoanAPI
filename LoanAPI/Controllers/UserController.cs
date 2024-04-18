@@ -1,14 +1,18 @@
 ﻿using Application.Services;
 using Application.Validators;
 using Domain.Entities;
+using Domain.Enums;
 using FluentValidation;
 using Infrastructure.Helpers;
 using Infrastructure.Implementation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LoanAPI.Controllers
 {
-    
+
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : Controller
@@ -26,16 +30,34 @@ namespace LoanAPI.Controllers
             _tokenGenerator = tokenGenerator;
         }
 
+        
         [HttpGet("{id}")]
         public IActionResult GetUserById(int id) 
         {
-            var user = _userService.GetUserById(id);
-            if (user == null)
+            if (User.IsInRole(Role.Accountant))
             {
-                return NotFound();
+                var user = _userService.GetUserById(id);
+                if (user == null)
+                {
+                    return NotFound("User not found, please enter valid Id");
+                }
+                return Ok(user);
             }
-            return Ok(user);
+            else
+            {
+                var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                if(currentUserId != id) 
+                {
+                    return Forbid("You can't access this data");
+                }
+                var user = _userService.GetUserById(id);
+                return Ok(user);
+            }
+
+
         }
+
+        [Authorize(Roles = Role.Accountant)]
         [HttpGet("all")]
         public IActionResult GetUsers() 
         {
@@ -43,6 +65,7 @@ namespace LoanAPI.Controllers
             return Ok(users);
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public IActionResult login([FromBody]User loginModel)
         {
@@ -67,6 +90,7 @@ namespace LoanAPI.Controllers
                 });
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register([FromBody] User registerModel)
         {
@@ -89,6 +113,26 @@ namespace LoanAPI.Controllers
                 });
         }
 
+
+        [Authorize(Roles = Role.User)]
+        [HttpGet("loans")]
+        public IActionResult GetMyLoans() 
+        {
+            int userId;
+            if (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out userId)) 
+            {
+                var loans = _userService.GetMyLoans(userId);
+                if(loans == null)
+                {
+                    return NotFound();
+                }
+                return Ok(loans);
+            }
+            else
+            {
+                return Unauthorized("User ID is invalid or missing");
+            }
+        }
 
     }
 }

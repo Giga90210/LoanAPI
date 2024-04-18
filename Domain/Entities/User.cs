@@ -31,6 +31,7 @@ namespace Domain.Entities
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string Role { get; set; } = "User";
 
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public ICollection<Loan> Loans { get; set; } = new List<Loan>();
 
     }

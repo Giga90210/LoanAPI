@@ -29,7 +29,7 @@ namespace Infrastructure.Helpers
             new Claim(ClaimTypes.GivenName, accountant.FirstName),
             new Claim(ClaimTypes.Surname, accountant.LastName),
             new Claim(ClaimTypes.Email, accountant.Email),
-            new Claim(ClaimTypes.Role, accountant.Role)
+            new Claim(ClaimTypes.Role, accountant.Role.ToString())
         }),
                 Expires = DateTime.UtcNow.AddDays(7), // Token validity of 7 days
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

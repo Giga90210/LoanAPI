@@ -13,6 +13,7 @@ namespace Application.Services
         User Login(User loginModel);
         IEnumerable<User> GetUsers();
         User GetUserById(int id);
+        IEnumerable<Loan> GetMyLoans(int id);
 
     }
 }
