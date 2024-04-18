@@ -44,17 +44,17 @@ namespace Infrastructure.Implementation
 
         }
 
-        public Accountant Register(Accountant accountant)
+        public Accountant Register(Accountant registerModel)
         {
             //if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(password)) {
             //    return null; 
             //}
 
             
-            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(accountant.Password);
-            accountant.Password = hashedPassword;
-            accountant.Email = $"{accountant.FirstName}.{accountant.LastName}@accountant.gmail.com";
-            _appDbContext.Accountants.Add(accountant);
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(registerModel.Password);
+            registerModel.Password = hashedPassword;
+            //accountant.Email = $"{accountant.FirstName}.{accountant.LastName}@accountant.gmail.com";
+            _appDbContext.Accountants.Add(registerModel);
             _appDbContext.SaveChanges();
             //var newAccountant = new Accountant
             //{
@@ -63,7 +63,11 @@ namespace Infrastructure.Implementation
             //    Email = $"{firstName}.{lastName}@accountant.gmail.com",
             //    Password = hashedPassword
             //};
-            return accountant;
+            return registerModel;
         }
+
+
+
+        public Accountant GetAccountantById(int id) => _appDbContext.Accountants.FirstOrDefault(x => x.Id == id);
     }
 }

@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "ipGgGd/VPyqgm9+qgH2AA1u/dubyGNXBbB0b6F0Ux5RHrTB4BdsYVre9N7syaz/Y3u+2cU9qTDoIVjmqGMB/XA==",
+  "dgSpecHash": "0i8rd4/dn1hCkbq1A8kl4to9DzcBvdlc3vwNC+D10SnQ/d3Gg49THUP0rjw2+Yu5npJWdIKkyQ0o2YrkWX7T6g==",
   "success": true,
   "projectFilePath": "C:\\Users\\Home\\source\\repos\\LoanAPI\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Home\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\Home\\.nuget\\packages\\fluentvalidation\\11.9.0\\fluentvalidation.11.9.0.nupkg.sha512",
     "C:\\Users\\Home\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Home\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Home\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
